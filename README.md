@@ -2,7 +2,7 @@
 
 This application convert markdown table to csv file.
 
-## Install vie Homebrew
+## Install via Homebrew
 ```bash
 brew tap BatuhanKucukali/mdtable2csv https://github.com/BatuhanKucukali/homebrew-mdtable2csv
 brew update && brew doctor
