@@ -9,7 +9,8 @@ import (
 )
 
 var (
-	defaultDelimiter = ","
+	defaultDelimiter  = ","
+	markdownDelimiter = "|"
 )
 
 var convertCmd = &cobra.Command{
@@ -48,12 +49,13 @@ func convert(filePath string, delimiter string) error {
 
 	i := 0
 	for scanner.Scan() {
-		if i == 1 {
+		line := scanner.Text()
+		if i == 1 || len(line) == 0 {
 			i++
 			continue
 		}
 
-		line := getCleanLine(scanner.Text())
+		line = getCleanLine(line)
 		columns := getColumns(line)
 		newColumn := getCleanColumns(columns)
 
@@ -97,6 +99,17 @@ func getColumns(line string) []string {
 	return strings.Split(line, "|")
 }
 
-func getCleanLine(row string) string {
-	return row[2 : len(row)-1]
+func getCleanLine(line string) string {
+	firstCharacter := line[:1]
+	lastCharacter := line[len(line)-1:]
+
+	if firstCharacter == markdownDelimiter {
+		line = line[1 : len(line)-1]
+	}
+
+	if lastCharacter == markdownDelimiter {
+		return line[0 : len(line)-1]
+	}
+
+	return line
 }
