@@ -75,6 +75,7 @@ go test ./cmd/
 - [X] Brew repository
 - [X] Test
 - [ ] Argument helper
+- [ ] Argument for trim option
 - [ ] Argument for new file name
 
 ## Getting help ##
