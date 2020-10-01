@@ -58,6 +58,7 @@ go test ./cmd/
 - [X] Brew repository
 - [X] Test
 - [ ] Argument helper
+- [ ] Argument for new file name
 
 ## Getting help ##
 
