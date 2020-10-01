@@ -7,9 +7,9 @@ This application convert markdown table to csv file.
 [![Go Report Card](https://goreportcard.com/badge/github.com/BatuhanKucukali/mdtable2csv)](https://goreportcard.com/report/github.com/BatuhanKucukali/istekbin-api)
 
 ## Install via Homebrew
+
 ```bash
-brew tap BatuhanKucukali/mdtable2csv https://github.com/BatuhanKucukali/homebrew-mdtable2csv
-brew update && brew doctor
+brew tap BatuhanKucukali/mdtable2csv
 brew install mdtable2csv
 ```
 
