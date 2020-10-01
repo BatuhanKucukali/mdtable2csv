@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/csv"
 	"github.com/spf13/cobra"
+	"io"
 	"os"
 	"strings"
 )
@@ -43,34 +44,20 @@ func convert(filePath string, delimiter string) error {
 	}
 	defer file.Close()
 
-	var csvData [][]string
-
-	scanner := bufio.NewScanner(file)
-
-	i := 0
-	for scanner.Scan() {
-		line := scanner.Text()
-		if i == 1 || len(line) == 0 {
-			i++
-			continue
-		}
-
-		line = getCleanLine(line)
-		columns := getColumns(line)
-		newColumn := getCleanColumns(columns)
-
-		csvData = append(csvData, newColumn)
-		i++
-	}
-
-	if err := scanner.Err(); err != nil {
-		return err
-	}
-
-	csvFile, err := os.Create(file.Name() + ".csv")
+	csvData, err := getCsvData(file)
 	if err != nil {
 		return err
 	}
+
+	return createCsvFile(file.Name(), delimiter, csvData)
+}
+
+func createCsvFile(fileName string, delimiter string, csvData [][]string) error {
+	csvFile, err := os.Create(fileName + ".csv")
+	if err != nil {
+		return err
+	}
+
 	defer csvFile.Close()
 
 	writer := csv.NewWriter(csvFile)
@@ -86,7 +73,35 @@ func convert(filePath string, delimiter string) error {
 	return nil
 }
 
-func getCleanColumns(columns []string) []string {
+func getCsvData(r io.Reader) ([][]string, error) {
+	var csvData [][]string
+
+	scanner := bufio.NewScanner(r)
+
+	i := 0
+	for scanner.Scan() {
+		line := scanner.Text()
+		if i == 1 || len(line) == 0 {
+			i++
+			continue
+		}
+
+		line = cleanLine(line)
+		columns := getColumns(line)
+		newRow := cleanColumns(columns)
+
+		csvData = append(csvData, newRow)
+		i++
+	}
+
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	return csvData, nil
+}
+
+func cleanColumns(columns []string) []string {
 	var newRows []string
 	for i := 0; i < len(columns); i++ {
 		newRow := strings.TrimSpace(columns[i])
@@ -99,16 +114,16 @@ func getColumns(line string) []string {
 	return strings.Split(line, "|")
 }
 
-func getCleanLine(line string) string {
+func cleanLine(line string) string {
 	firstCharacter := line[:1]
 	lastCharacter := line[len(line)-1:]
 
 	if firstCharacter == markdownDelimiter {
-		line = line[1 : len(line)-1]
+		line = line[1:]
 	}
 
 	if lastCharacter == markdownDelimiter {
-		return line[0 : len(line)-1]
+		return line[:len(line)-1]
 	}
 
 	return line

@@ -46,6 +46,12 @@ go build .
 ./mdtable2csv convert example/markdown.md
 ```
 
+## Run Test
+
+```bash
+go test ./cmd/
+```
+
 ## TODO
 
 - [X] Documentation
