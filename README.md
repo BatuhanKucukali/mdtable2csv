@@ -56,7 +56,7 @@ go test ./cmd/
 
 - [X] Documentation
 - [X] Brew repository
-- [ ] Test
+- [X] Test
 - [ ] Argument helper
 
 ## Getting help ##
