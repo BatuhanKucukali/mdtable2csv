@@ -1,12 +1,26 @@
 # mdtable2csv - Convert Markdown Table To Csv File
 
-- [TODO] Description
+This application convert markdown table to csv file.
 
 ## Install vie Homebrew
 ```bash
 brew tap BatuhanKucukali/mdtable2csv https://github.com/BatuhanKucukali/homebrew-mdtable2csv
 brew update && brew doctor
 brew install mdtable2csv
+```
+
+## Usage
+
+mdtable2csv {filePath} {delimiter(default ',')}
+
+Examples
+
+```bash
+mdtable2csv example/markdown.md
+```
+
+```bash
+mdtable2csv example/markdown.md ;
 ```
 
 ## Run this project
@@ -30,7 +44,7 @@ go build .
 
 ## TODO
 
-- [ ] Documentation
+- [X] Documentation
 - [X] Brew repository
 - [ ] Test
 - [ ] Argument helper
