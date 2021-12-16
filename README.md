@@ -15,16 +15,16 @@ brew install mdtable2csv
 
 ## Usage
 
-mdtable2csv {filePath} {delimiter(default ',')}
+mdtable2csv convert {filePath} {delimiter(default ',')}
 
 Examples
 
 ```bash
-mdtable2csv example/markdown.md
+mdtable2csv convert example/markdown.md
 ```
 
 ```bash
-mdtable2csv example/markdown.md ;
+mdtable2csv convert example/markdown.md ;
 ```
 
 ## Result
