@@ -48,3 +48,5 @@ _testmain.go
 # Idea
 .idea/
 *.iml
+.history/
+dist/
